@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         game.cpp \
     board.cpp \
-    tetris.cpp
+    tetris.cpp \
+    piece.cpp
 
 HEADERS += \
         game.h \
     board.h \
-    tetris.h
+    tetris.h \
+    piece.h
 
 FORMS += \
         game.ui
