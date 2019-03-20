@@ -110,14 +110,14 @@ TetrixWindow::TetrixWindow()
     layout->addWidget(nextPieceLabel, 1, 0);
     layout->addWidget(createLabel(tr("LEVEL")), 2, 0);
     layout->addWidget(levelLcd, 3, 0);
-    layout->addWidget(startButton, 4, 0);
-    layout->addWidget(board, 0, 1, 6, 1);
+    layout->addWidget(createLabel(tr("LINES REMOVED")), 4, 0);
+    layout->addWidget(linesLcd, 5, 0);
+    layout->addWidget(startButton, 6, 0);
+    layout->addWidget(quitButton, 7, 0);
+    layout->addWidget(pauseButton, 8, 0);
+    layout->addWidget(board, 0, 1, 9, 1);
     layout->addWidget(createLabel(tr("SCORE")), 0, 2);
     layout->addWidget(scoreLcd, 1, 2);
-    layout->addWidget(createLabel(tr("LINES REMOVED")), 2, 2);
-    layout->addWidget(linesLcd, 3, 2);
-    layout->addWidget(quitButton, 4, 2);
-    layout->addWidget(pauseButton, 5, 2);
     setLayout(layout);
 
     setWindowTitle(tr("Tetrix"));
