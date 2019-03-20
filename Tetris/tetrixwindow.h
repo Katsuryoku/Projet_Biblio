@@ -53,6 +53,7 @@
 
 #include <QFrame>
 #include <QWidget>
+#include <CameraWidget.h>
 
 QT_BEGIN_NAMESPACE
 class QLCDNumber;
@@ -73,6 +74,8 @@ private:
     QLabel *createLabel(const QString &text);
 
     TetrixBoard *board;
+    CameraWidget *Camera;
+    QLabel *labelCamera;
     QLabel *nextPieceLabel;
     QLCDNumber *scoreLcd;
     QLCDNumber *levelLcd;
@@ -80,6 +83,8 @@ private:
     QPushButton *startButton;
     QPushButton *quitButton;
     QPushButton *pauseButton;
+private slots :
+    void destroyCam();
 };
 //! [0]
 

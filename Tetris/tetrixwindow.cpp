@@ -82,11 +82,18 @@ TetrixWindow::TetrixWindow()
 //! [2] //! [3]
     pauseButton->setFocusPolicy(Qt::NoFocus);
 //! [3] //! [4]
+//! [Camera]
+    labelCamera = new QLabel;
+    Camera = new CameraWidget(labelCamera);
 
     connect(startButton, &QPushButton::clicked, board, &TetrixBoard::start);
+
+    connect(startButton, &QPushButton::clicked, Camera, &CameraWidget::play);
 //! [4] //! [5]
+    connect(quitButton , &QPushButton::clicked, this, &TetrixWindow::destroyCam);
     connect(quitButton , &QPushButton::clicked, qApp, &QApplication::quit);
     connect(pauseButton, &QPushButton::clicked, board, &TetrixBoard::pause);
+    connect(pauseButton, &QPushButton::clicked, Camera, &CameraWidget::changePlay);
 #if __cplusplus >= 201402L
     connect(board, &TetrixBoard::scoreChanged,
             scoreLcd, qOverload<int>(&QLCDNumber::display));
@@ -118,13 +125,17 @@ TetrixWindow::TetrixWindow()
     layout->addWidget(board, 0, 1, 9, 1);
     layout->addWidget(createLabel(tr("SCORE")), 0, 2);
     layout->addWidget(scoreLcd, 1, 2);
+    layout->addWidget(createLabel(tr("CAMERA")), 2, 2);
+    layout->addWidget(labelCamera,3,2,9, 2);
     setLayout(layout);
 
     setWindowTitle(tr("Tetrix"));
     resize(550, 370);
 }
 //! [6]
-
+void TetrixWindow::destroyCam(){
+    Camera->~CameraWidget();
+}
 //! [7]
 QLabel *TetrixWindow::createLabel(const QString &text)
 {
