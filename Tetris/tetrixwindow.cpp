@@ -84,6 +84,7 @@ TetrixWindow::TetrixWindow()
 //! [3] //! [4]
 //! [Camera]
     labelCamera = new QLabel;
+    labelCamera->setFrameStyle(QFrame::Box | QFrame::Raised);
     Camera = new CameraWidget(labelCamera);
 
     connect(startButton, &QPushButton::clicked, board, &TetrixBoard::start);
@@ -126,7 +127,7 @@ TetrixWindow::TetrixWindow()
     layout->addWidget(createLabel(tr("SCORE")), 0, 2);
     layout->addWidget(scoreLcd, 1, 2);
     layout->addWidget(createLabel(tr("CAMERA")), 2, 2);
-    layout->addWidget(labelCamera,3,2,9, 2);
+    layout->addWidget(labelCamera,3,2);
     setLayout(layout);
 
     setWindowTitle(tr("Tetrix"));
