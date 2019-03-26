@@ -1,48 +1,25 @@
-#-------------------------------------------------
-#
-# Project created by QtCreator 2019-03-13T11:32:37
-#
-#-------------------------------------------------
+QT += widgets
 
-QT       += core gui
+HEADERS       = tetrixboard.h \
+                tetrixpiece.h \
+                tetrixwindow.h \
+                camerawidget.h \
+    			fistdetection.h
+SOURCES       = main.cpp \
+                tetrixboard.cpp \
+                tetrixpiece.cpp \
+                tetrixwindow.cpp \
+                camerawidget.cpp \
+    			fistdetection.cpp
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Tetris
-TEMPLATE = app
+INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
 
-# The following define makes your compiler emit warnings if you use
-# any feature of Qt which has been marked as deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
-DEFINES += QT_DEPRECATED_WARNINGS
-
-# You can also make your code fail to compile if you use deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
-
-CONFIG += c++11
-
-SOURCES += \
-        main.cpp \
-        game.cpp \
-    board.cpp \
-    tetris.cpp \
-    piece.cpp \
-    fistdetection.cpp
-
-HEADERS += \
-        game.h \
-    board.h \
-    tetris.h \
-    piece.h \
-    fistdetection.h
-
-FORMS += \
-        game.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+LIBS += -L$$(OPENCV_DIR)\lib \
+    -lopencv_core401 \
+    -lopencv_highgui401 \
+    -lopencv_imgproc401 \
+    -lopencv_features2d401 \
+    -lopencv_calib3d401 \
+    -lopencv_objdetect401\
+    -lopencv_videoio401.dll
