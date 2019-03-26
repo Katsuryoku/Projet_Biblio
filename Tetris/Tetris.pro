@@ -29,13 +29,15 @@ SOURCES += \
         game.cpp \
     board.cpp \
     tetris.cpp \
-    piece.cpp
+    piece.cpp \
+    fistdetection.cpp
 
 HEADERS += \
         game.h \
     board.h \
     tetris.h \
-    piece.h
+    piece.h \
+    fistdetection.h
 
 FORMS += \
         game.ui
