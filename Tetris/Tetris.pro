@@ -4,12 +4,28 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl widgets
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+
+
+TEMPLATE = app
+
+# ajout des libs au linker
+win32 {
+    win32-msvc* {
+        LIBS     += opengl32.lib glu32.lib
+        DEFINES  += _WIN32
+    } else {
+        LIBS     += -lopengl32 -lglu32
+    }
+}
+unix:!macx {
+        LIBS     += -lGL -lGLU
+}
+
 
 TARGET = Tetris
-TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -24,18 +40,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+
+
+
 SOURCES += \
         main.cpp \
         game.cpp \
     board.cpp \
     tetris.cpp \
-    piece.cpp
+    piece.cpp \
+    glwidget.cpp
 
 HEADERS += \
         game.h \
     board.h \
     tetris.h \
-    piece.h
+    piece.h \
+    glwidget.h
 
 FORMS += \
         game.ui
