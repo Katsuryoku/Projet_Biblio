@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include <GL/glu.h>
-
+#include "tetrixpiece.h"
 
 // Classe dediee a l'affichage d'une scene OpenGL
 class GLWidget : public QGLWidget
@@ -17,14 +17,13 @@ public:
     // Constructeur
     GLWidget(QWidget * parent = nullptr);
 
-    void createCube(double x,double y);
-
     void cubeGame(int r);
-
+public slots:
+    void addCubes(int x, int y, TetrixShape shape);
+    void createCube(double x, double z, TetrixShape shape);
 protected:
     // Fonction d'initialisation
     void initializeGL();
-
     // Fonction de redimensionnement
     void resizeGL(int width, int height);
 

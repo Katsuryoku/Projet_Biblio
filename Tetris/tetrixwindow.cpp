@@ -58,7 +58,7 @@ TetrixWindow::TetrixWindow()
 {
     board = new TetrixBoard;
 //! [0]
-    glWidget = new GLWidget;
+    glWidget = new GLWidget();
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
@@ -110,7 +110,8 @@ TetrixWindow::TetrixWindow()
     connect(board, &TetrixBoard::linesRemovedChanged,
             linesLcd, QOverload<int>::of(&QLCDNumber::display));
 #endif
-    connect(Camera,&CameraWidget::tryMoveCam,board,&TetrixBoard::tryMoveCam);;
+    connect(board,&TetrixBoard::createCube,glWidget,&GLWidget::createCube);
+    connect(Camera,&CameraWidget::tryMoveCam,board,&TetrixBoard::tryMoveCam);
 //! [5]
 
 //! [6]

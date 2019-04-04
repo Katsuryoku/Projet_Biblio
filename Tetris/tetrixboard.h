@@ -82,6 +82,7 @@ signals:
     void scoreChanged(int score);
     void levelChanged(int level);
     void linesRemovedChanged(int numLines);
+    void createCube(double x, double z,TetrixShape shape);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -121,7 +122,6 @@ private:
     int score;
     int level;
     TetrixShape board[BoardWidth * BoardHeight];
-    void createCube(double x, double z);
 };
 //! [1]
 

@@ -19,7 +19,7 @@ const float MAX_DIMENSION     = 50.0f;
 GLWidget::GLWidget(QWidget * parent) : QGLWidget(parent)
 {
     // Reglage de la taille/position
-    //setFixedSize(WIN_WIDTH/3, WIN_HEIGHT);
+    setFixedSize(WIN_WIDTH, WIN_HEIGHT);
     move(QApplication::desktop()->screen()->rect().center() - rect().center());
 
 }
@@ -58,7 +58,7 @@ void GLWidget::initializeGL()
 void GLWidget::resizeGL(int width, int height)
 {
     // Definition du viewport (zone d'affichage)
-    glViewport(0, 0, width/3, height);
+    glViewport(0, 0, width, height);
 
 
     // Definition de la matrice de projection
@@ -70,8 +70,16 @@ void GLWidget::resizeGL(int width, int height)
     glLoadIdentity();
 }
 
-void GLWidget::createCube(double x, double z){
-    glColor3ub(255,255,0);
+void GLWidget::createCube(double x, double z, TetrixShape shape){
+    static const QRgb colorTable[8] = {
+        0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
+    };
+
+    QColor color = colorTable[int(shape)];
+    glColor3ub(color.red(),color.green(),color.blue());
+    z=(z+1)*height()/23;
+    x=(x+1)*width()/3;
     glBegin(GL_QUADS);
     glVertex3d(x,z,0);
     glVertex3d(x+width()/3,z,0);
@@ -104,6 +112,8 @@ void GLWidget::createCube(double x, double z){
     glVertex3d(x+width()/3,z+height()/12,0);
 
     glEnd();
+
+    updateGL();
 }
 
 void GLWidget::cubeGame(int r){
@@ -111,7 +121,18 @@ void GLWidget::cubeGame(int r){
     int x=r%10;
     y=(y+1)*height()/23;
     x=(x+1)*width()/3;
-    createCube(x,y);
+    //createCube(x,y);
+}
+
+void GLWidget::addCubes(int x, int y, TetrixShape shape)
+{
+    static const QRgb colorTable[8] = {
+        0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
+    };
+
+    QColor color = colorTable[int(shape)];
+    QPoint point = QPoint(x,y);
 }
 
 // Fonction d'affichage
