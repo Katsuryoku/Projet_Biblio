@@ -10,7 +10,6 @@
 #include <cstdio>
 #include <iostream>
 
-using namespace cv;
 using namespace std;
 
 typedef enum class Movment {kNone, rRight, rLeft, mRight, mLeft};
@@ -18,18 +17,18 @@ typedef enum class Movment {kNone, rRight, rLeft, mRight, mLeft};
 class FistDetection
 {
 private:
-    Mat displayFrame;
-    vector<Point> currentFistCenters;
-    CascadeClassifier face_cascade;
+    cv::Mat displayFrame;
+    vector<cv::Point> currentFistCenters;
+    cv::CascadeClassifier face_cascade;
     int divisionDetect = 4;
     int heigthDetect = 15;
 public:
     FistDetection();
     bool loadCascade();
-    bool loadCascade(String path);
-    Movment detection(Mat frame);
+    bool loadCascade(cv::String path);
+    Movment detection(cv::Mat frame);
     void setDivisionDetect(int value){divisionDetect=value;}
-    Mat getDisplayFrame(){return displayFrame;}
+    cv::Mat getDisplayFrame(){return displayFrame;}
 };
 
 #endif // FISTDETECTION_H

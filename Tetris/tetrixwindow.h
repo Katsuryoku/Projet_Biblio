@@ -54,6 +54,7 @@
 #include <QFrame>
 #include <QWidget>
 #include <CameraWidget.h>
+#include <glwidget.h>
 
 QT_BEGIN_NAMESPACE
 class QLCDNumber;
@@ -72,7 +73,7 @@ public:
 
 private:
     QLabel *createLabel(const QString &text);
-
+    GLWidget *glWidget;
     TetrixBoard *board;
     CameraWidget *Camera;
     QLabel *labelCamera;

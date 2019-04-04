@@ -1,5 +1,6 @@
 #include "camerawidget.h"
 
+using namespace cv;
 CameraWidget::CameraWidget(QLabel* label, QWidget *parent) : QWidget (parent)
 {
     cap.open(0);

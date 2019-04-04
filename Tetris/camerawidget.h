@@ -11,7 +11,6 @@
 #include <QLabel>
 #include "fistdetection.h"
 
-using namespace cv;
 using namespace std;
 class CameraWidget : public QWidget
 {
@@ -19,9 +18,9 @@ class CameraWidget : public QWidget
 public:
     explicit CameraWidget(QLabel* label, QWidget *parent = nullptr);
 private:
-    VideoCapture cap;
+    cv::VideoCapture cap;
     QImage Mat2QImage(cv::Mat const& src,bool flipe =true);
-    Mat frame;
+    cv::Mat frame;
     QImage img;
     QLabel* labelCam;
     FistDetection detector;

@@ -1,5 +1,6 @@
 #include "fistdetection.h"
 
+using namespace cv;
 FistDetection::FistDetection()
 {
 }

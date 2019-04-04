@@ -3,14 +3,16 @@ QT += core gui opengl widgets
 win32 {
     win32-msvc* {
         LIBS     += opengl32.lib glu32.lib
-        DEFINES  += _WIN32
     } else {
         LIBS     += -lopengl32 -lglu32
     }
 }
-unix:!macx {
+unix {
         LIBS     += -lGL -lGLU
 }
+CONFIG	 += c++14
+# nom de l'exe genere
+TARGET 	  = Tetrix
 HEADERS       = tetrixboard.h \
                 tetrixpiece.h \
                 tetrixwindow.h \

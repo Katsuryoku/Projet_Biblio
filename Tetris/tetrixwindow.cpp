@@ -58,7 +58,7 @@ TetrixWindow::TetrixWindow()
 {
     board = new TetrixBoard;
 //! [0]
-
+    glWidget = new GLWidget;
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
@@ -124,7 +124,7 @@ TetrixWindow::TetrixWindow()
     layout->addWidget(startButton, 6, 0);
     layout->addWidget(quitButton, 7, 0);
     layout->addWidget(pauseButton, 8, 0);
-    layout->addWidget(board, 0, 1, 9, 1);
+    layout->addWidget(glWidget, 0, 1, 9, 1);
     layout->addWidget(createLabel(tr("SCORE")), 0, 2);
     layout->addWidget(scoreLcd, 1, 2);
     layout->addWidget(createLabel(tr("CAMERA")), 2, 2);

@@ -19,7 +19,7 @@ const float MAX_DIMENSION     = 50.0f;
 GLWidget::GLWidget(QWidget * parent) : QGLWidget(parent)
 {
     // Reglage de la taille/position
-    setFixedSize(WIN_WIDTH, WIN_HEIGHT);
+    //setFixedSize(WIN_WIDTH/3, WIN_HEIGHT);
     move(QApplication::desktop()->screen()->rect().center() - rect().center());
 
 }
@@ -58,7 +58,7 @@ void GLWidget::initializeGL()
 void GLWidget::resizeGL(int width, int height)
 {
     // Definition du viewport (zone d'affichage)
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, width/3, height);
 
 
     // Definition de la matrice de projection

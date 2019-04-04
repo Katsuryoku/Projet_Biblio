@@ -415,6 +415,41 @@ void TetrixBoard::drawSquare(QPainter &painter, int x, int y, TetrixShape shape)
     painter.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
                      x + squareWidth() - 1, y + 1);
 }
+void TetrixBoard::createCube(double x, double z){
+    glColor3ub(255,255,0);
+    glBegin(GL_QUADS);
+    glVertex3d(x,z,0);
+    glVertex3d(x+width()/3,z,0);
+    glVertex3d(x+width()/3,z+height()/23,0);
+    glVertex3d(x,z+height()/23,0);
+
+    glVertex3d(x,z,0);
+    glVertex3d(x+width()/3,z,0);
+    glVertex3d(x+width()/3,z,-20);
+    glVertex3d(x,z,-20);
+
+    glVertex3d(x,z+height()/23,0);
+    glVertex3d(x+width()/3,z+height()/23,0);
+    glVertex3d(x+width()/3,z+height()/23,-20);
+    glVertex3d(x,z+height()/23,-20);
+
+    glVertex3d(x,z,-20);
+    glVertex3d(x+width()/3,z,-20);
+    glVertex3d(x+width()/3,z+height()/23,-20);
+    glVertex3d(x,z+height()/23,-20);
+
+    glVertex3d(x,z,0);
+    glVertex3d(x,z,-20);
+    glVertex3d(x,z+height()/23,-20);
+    glVertex3d(x,z+height()/23,0);
+
+    glVertex3d(x+width()/3,z,0);
+    glVertex3d(x+width()/3,z,-20);
+    glVertex3d(x+width()/3,z+height()/23,-20);
+    glVertex3d(x+width()/3,z+height()/12,0);
+
+    glEnd();
+}
 //! [36]
 void TetrixBoard::tryMoveCam(Movment mvm)
 {
