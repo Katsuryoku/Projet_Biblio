@@ -26,8 +26,23 @@ SOURCES       = main.cpp \
                 camerawidget.cpp \
     			fistdetection.cpp \
     			glwidget.cpp
+message(Qt version: $$[QT_VERSION])
+exists( $(QTDIR)/me.txt ) {
+      message( Bravo !)
 
 
+INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
+
+LIBS += -L$$(OPENCV_DIR)\lib \
+    -lopencv_core401 \
+    -lopencv_highgui401 \
+    -lopencv_imgproc401 \
+    -lopencv_features2d401 \
+    -lopencv_calib3d401 \
+    -lopencv_objdetect401\
+    -lopencv_videoio401.dll
+}
+!exists( $(QTDIR)/me.txt ){
 INCLUDEPATH +=$$(OPENCV_DIR)file:///D:/Program_Files/opencv/build
 
 LIBS += -L$$(OPENCV_DIR)\lib \
@@ -37,4 +52,6 @@ LIBS += -L$$(OPENCV_DIR)\lib \
     -lopencv_features2d2413 \
     -lopencv_calib3d2413 \
     -lopencv_objdetect2413\
-#    -lopencv_opencv2413.dll
+}else{
+
+}
