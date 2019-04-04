@@ -1,16 +1,29 @@
-QT += widgets
-
+QT += core gui opengl widgets
+# ajout des libs au linker
+win32 {
+    win32-msvc* {
+        LIBS     += opengl32.lib glu32.lib
+        DEFINES  += _WIN32
+    } else {
+        LIBS     += -lopengl32 -lglu32
+    }
+}
+unix:!macx {
+        LIBS     += -lGL -lGLU
+}
 HEADERS       = tetrixboard.h \
                 tetrixpiece.h \
                 tetrixwindow.h \
                 camerawidget.h \
-    			fistdetection.h
+    			fistdetection.h \
+    			glwidget.h
 SOURCES       = main.cpp \
                 tetrixboard.cpp \
                 tetrixpiece.cpp \
                 tetrixwindow.cpp \
                 camerawidget.cpp \
-    			fistdetection.cpp
+    			fistdetection.cpp \
+    			glwidget.cpp
 
 
 INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
