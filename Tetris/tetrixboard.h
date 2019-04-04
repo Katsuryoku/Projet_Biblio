@@ -54,10 +54,10 @@
 #include <QBasicTimer>
 #include <QFrame>
 #include <QPointer>
-
+#include <QTime>
 #include "tetrixpiece.h"
 #include "fistdetection.h"
-
+#include <QDebug>
 QT_BEGIN_NAMESPACE
 class QLabel;
 QT_END_NAMESPACE
@@ -106,7 +106,7 @@ private:
     void showNextPiece();
     bool tryMove(const TetrixPiece &newPiece, int newX, int newY);
     void drawSquare(QPainter &painter, int x, int y, TetrixShape shape);
-
+    QTime lastMvmTime;
     QBasicTimer timer;
     QPointer<QLabel> nextPieceLabel;
     bool isStarted;
