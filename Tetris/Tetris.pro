@@ -28,13 +28,13 @@ SOURCES       = main.cpp \
     			glwidget.cpp
 
 
-INCLUDEPATH +=$$(OPENCV_DIR)\..\..\include
+INCLUDEPATH +=$$(OPENCV_DIR)file:///D:/Program_Files/opencv/build
 
 LIBS += -L$$(OPENCV_DIR)\lib \
-    -lopencv_core401 \
-    -lopencv_highgui401 \
-    -lopencv_imgproc401 \
-    -lopencv_features2d401 \
-    -lopencv_calib3d401 \
-    -lopencv_objdetect401\
-    -lopencv_videoio401.dll
+    -lopencv_core2413 \
+    -lopencv_highgui2413 \
+    -lopencv_imgproc2413 \
+    -lopencv_features2d2413 \
+    -lopencv_calib3d2413 \
+    -lopencv_objdetect2413\
+#    -lopencv_opencv2413.dll
