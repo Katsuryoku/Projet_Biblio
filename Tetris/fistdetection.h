@@ -18,17 +18,18 @@ typedef enum class Movment {kNone, rRight, rLeft, mRight, mLeft};
 class FistDetection
 {
 private:
+    Mat displayFrame;
     vector<Point> currentFistCenters;
     CascadeClassifier face_cascade;
-    bool cascadeIsLoaded=false;
     int divisionDetect = 4;
     int heigthDetect = 15;
 public:
     FistDetection();
-    void loadCascade();
-    void loadCascade(String path);
+    bool loadCascade();
+    bool loadCascade(String path);
     Movment detection(Mat frame);
     void setDivisionDetect(int value){divisionDetect=value;}
+    Mat getDisplayFrame(){return displayFrame;}
 };
 
 #endif // FISTDETECTION_H

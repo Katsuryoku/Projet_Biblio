@@ -416,3 +416,23 @@ void TetrixBoard::drawSquare(QPainter &painter, int x, int y, TetrixShape shape)
                      x + squareWidth() - 1, y + 1);
 }
 //! [36]
+void TetrixBoard::tryMoveCam(Movment mvm)
+{
+    switch (mvm) {
+    case Movment::mLeft:
+        tryMove(curPiece, curX - 1, curY);
+        break;
+    case Movment::mRight:
+        tryMove(curPiece, curX + 1, curY);
+        break;
+    case Movment::rRight:
+        tryMove(curPiece.rotatedRight(), curX, curY);
+        break;
+    case Movment::rLeft:
+        tryMove(curPiece.rotatedLeft(), curX, curY);
+        break;
+    case Movment::kNone:
+        break;
+    }
+
+}

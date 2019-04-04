@@ -56,11 +56,11 @@
 #include <QPointer>
 
 #include "tetrixpiece.h"
+#include "fistdetection.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
 QT_END_NAMESPACE
-
 //! [0]
 class TetrixBoard : public QFrame
 {
@@ -76,6 +76,7 @@ public:
 public slots:
     void start();
     void pause();
+    void tryMoveCam(Movment mvm);
 
 signals:
     void scoreChanged(int score);

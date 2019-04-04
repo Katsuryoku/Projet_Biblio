@@ -110,6 +110,7 @@ TetrixWindow::TetrixWindow()
     connect(board, &TetrixBoard::linesRemovedChanged,
             linesLcd, QOverload<int>::of(&QLCDNumber::display));
 #endif
+    connect(Camera,&CameraWidget::tryMoveCam,board,&TetrixBoard::tryMoveCam);;
 //! [5]
 
 //! [6]
@@ -131,7 +132,7 @@ TetrixWindow::TetrixWindow()
     setLayout(layout);
 
     setWindowTitle(tr("Tetrix"));
-    resize(550, 370);
+    QTimer::singleShot(0, this, SLOT(showFullScreen()));
 }
 //! [6]
 void TetrixWindow::destroyCam(){

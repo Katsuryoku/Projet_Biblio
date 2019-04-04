@@ -3,24 +3,24 @@
 FistDetection::FistDetection()
 {
 }
-void FistDetection::loadCascade()
+bool FistDetection::loadCascade()
 {
-    if( !face_cascade.load( "../haarcascade_frontalface_alt.xml" ) )
+    if( !face_cascade.load( "../Tetris/closed_palm.xml" ) )
     {
         cerr<<"Error loading haarcascade"<<endl;
-        cascadeIsLoaded = false;
+        return false;
     }else {
-        cascadeIsLoaded = true;
+        return true;
     }
 }
-void FistDetection::loadCascade(String path)
+bool FistDetection::loadCascade(String path)
 {
     if( !face_cascade.load(path) )
     {
         cerr<<"Error loading haarcascade"<<endl;
-        cascadeIsLoaded = false;
+        return false;
     }else {
-        cascadeIsLoaded = true;
+        return true;
     }
 }
 Movment FistDetection::detection(Mat frame)
@@ -66,10 +66,11 @@ Movment FistDetection::detection(Mat frame)
             if (currentFistCenters[1].inside(Rect(currentFistCenters[0].x,currentFistCenters[0].y-heigthDetect,frame.cols/4,20)))
             {
                 rectangle(frame,Rect(currentFistCenters[0].x,currentFistCenters[0].y-heigthDetect,frame.cols/4,20),Scalar(255,0,0),2);
+                displayFrame = frame;
                 return Movment::rRight;
             }
             else{
-
+                displayFrame = frame;
                 /** Movment **/
                 if (currentFistCenters[0].y+heigthDetect<currentFistCenters[1].y)
                 {
@@ -87,10 +88,11 @@ Movment FistDetection::detection(Mat frame)
             {
 
                 rectangle(frame,Rect(currentFistCenters[1].x,currentFistCenters[1].y-heigthDetect,frame.cols/4,20),Scalar(255,0,0),2);
+                displayFrame = frame;
                 return Movment::rRight;
             }
             else{
-
+                displayFrame = frame;
                 /** Movment **/
                 if (currentFistCenters[0].y+heigthDetect<currentFistCenters[1].y)
                 {
@@ -104,5 +106,6 @@ Movment FistDetection::detection(Mat frame)
         }
 
     }
+    displayFrame = frame;
     return Movment::kNone;
 }

@@ -9,6 +9,7 @@
 #include <cstdio>
 #include <iostream>
 #include <QLabel>
+#include "fistdetection.h"
 
 using namespace cv;
 using namespace std;
@@ -23,9 +24,10 @@ private:
     Mat frame;
     QImage img;
     QLabel* labelCam;
+    FistDetection detector;
     bool play_ = false;
 signals:
-
+    void tryMoveCam(Movment mvm);
 public slots:
     void changePlay();
     void play();

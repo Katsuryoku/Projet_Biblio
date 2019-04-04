@@ -5,6 +5,7 @@ CameraWidget::CameraWidget(QLabel* label, QWidget *parent) : QWidget (parent)
     cap.open(0);
     labelCam = label;
     play_ = false;
+    detector = FistDetection();
 }
 void CameraWidget::changePlay(){
     play_=!play_;
@@ -17,31 +18,16 @@ void CameraWidget::play(){
             cerr<<"Error openning the default camera"<<endl;
         }
 
-        CascadeClassifier face_cascade;
-        if( !face_cascade.load( "../Tetris/haarcascade_frontalface_alt.xml" ) )
-        {
-            cerr<<"Error loading haarcascade"<<endl;
-        }
-
         while (waitKey(5)<0)
         {
-            Mat frame,frame_gray;
-            std::vector<Rect> faces;
+
+            Mat frame;
             // Get frame
             cap >> frame;
-            // Mirror effect
-            cv::flip(frame,frame,1);
-            // Convert to gray
-            cv::cvtColor(frame,frame_gray,COLOR_BGR2GRAY);
-            // Equalize graylevels
-            //        equalizeHist( frame_gray, frame_gray );
-            //-- Detect faces
-            face_cascade.detectMultiScale( frame_gray, faces, 1.1, 4, 0|CASCADE_SCALE_IMAGE , Size(60, 60) );
-            if (faces.size()>0)
-            {
-                // Draw green rectangle
-                for (int i=0;i<(int)faces.size();i++)
-                    rectangle(frame,faces[i],Scalar(0,255,0),2);
+            if (detector.loadCascade()){
+                Movment mvmd = detector.detection(frame);
+                emit tryMoveCam(mvmd);
+                frame = detector.getDisplayFrame();
             }
             img= Mat2QImage(frame,false);
             labelCam->setPixmap(QPixmap::fromImage(img));
