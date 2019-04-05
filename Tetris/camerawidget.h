@@ -16,23 +16,33 @@
 #include <QLabel>
 #include "fistdetection.h"
 
+/* Autor : Thomas Mion */
 using namespace std;
 class CameraWidget : public QWidget
 {
     Q_OBJECT
 public:
+    // Constructor
     explicit CameraWidget(QLabel* label, QWidget *parent = nullptr);
 private:
+    // cam object
     cv::VideoCapture cap;
-    QImage Mat2QImage(cv::Mat const& src,bool flipe =true);
+    // frame captured by cap
     cv::Mat frame;
+    // image transformed
     QImage img;
+    // label where display img
     QLabel* labelCam;
+    // fist detector
     FistDetection detector;
+    // boolean to know if we play or not
     bool play_ = false;
+    // Transform Mat to QImage to display it
+    QImage Mat2QImage(cv::Mat const& src,bool flipe =true);
 signals:
     void tryMoveCam(Movment mvm);
 public slots:
+    // 2 methods to display or not the camera.
     void changePlay();
     void play();
 };
