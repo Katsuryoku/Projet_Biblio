@@ -134,6 +134,51 @@ void GLWidget::paintGL()
 
     //! [12]
 }
+
+void GLWidget::createCube(double x, double z, TetrixShape shape){
+    static const QRgb colorTable[8] = {
+            0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+            0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
+    };
+
+    QColor color = colorTable[int(shape)];
+    glColor3ub(color.red(),color.green(),color.blue());
+    z=(z+1)*height()/23;
+    x=(x+1)*width()/3;
+    glBegin(GL_QUADS);
+    glVertex3d(x,z,0);
+    glVertex3d(x+width(),z,0);
+    glVertex3d(x+width(),z+height()/23,0);
+    glVertex3d(x,z+height()/23,0);
+
+    glVertex3d(x,z,0);
+    glVertex3d(x+width(),z,0);
+    glVertex3d(x+width(),z,-20);
+    glVertex3d(x,z,-20);
+
+    glVertex3d(x,z+height()/23,0);
+    glVertex3d(x+width(),z+height()/23,0);
+    glVertex3d(x+width(),z+height()/23,-20);
+    glVertex3d(x,z+height()/23,-20);
+
+    glVertex3d(x,z,-20);
+    glVertex3d(x+width(),z,-20);
+    glVertex3d(x+width(),z+height()/23,-20);
+    glVertex3d(x,z+height()/23,-20);
+
+    glVertex3d(x,z,0);
+    glVertex3d(x,z,-20);
+    glVertex3d(x,z+height()/23,-20);
+    glVertex3d(x,z+height()/23,0);
+
+    glVertex3d(x+width(),z,0);
+    glVertex3d(x+width(),z,-20);
+    glVertex3d(x+width(),z+height()/23,-20);
+    glVertex3d(x+width(),z+height()/12,0);
+
+    glEnd();
+}
+
 //! [12]
 
 //! [13]
@@ -234,6 +279,7 @@ void GLWidget::pieceDropped(int dropHeight)
     for (int i = 0; i < 4; ++i) {
         int x = curX + curPiece.x(i);
         int y = curY - curPiece.y(i);
+        // setShapeAt(curPiece.shape(), x, y);
         shapeAt(x, y) = curPiece.shape();
     }
 
@@ -273,12 +319,16 @@ void GLWidget::removeFullLines()
             //! [24] //! [25]
             ++numFullLines;
             for (int k = i; k < BoardHeight - 1; ++k) {
-                for (int j = 0; j < BoardWidth; ++j)
+                for (int j = 0; j < BoardWidth; ++j){
+                    // setShapeAt(shapeAt(j, k + 1), j, k);
                     shapeAt(j, k) = shapeAt(j, k + 1);
+                }
             }
             //! [25] //! [26]
-            for (int j = 0; j < BoardWidth; ++j)
+            for (int j = 0; j < BoardWidth; ++j){
+                // setShapeAt(NoShape, j, BoardHeight - 1);
                 shapeAt(j, BoardHeight - 1) = NoShape;
+            }
         }
         //! [26] //! [27]
     }
@@ -414,52 +464,6 @@ void GLWidget::resizeGL(int width, int height)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-}
-
-void GLWidget::createCube(double x, double z, TetrixShape shape){
-    static const QRgb colorTable[8] = {
-        0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
-        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
-    };
-
-    QColor color = colorTable[int(shape)];
-    glColor3ub(color.red(),color.green(),color.blue());
-    z=(z+1)*height()/23;
-    x=(x+1)*width()/3;
-    glBegin(GL_QUADS);
-    glVertex3d(x,z,0);
-    glVertex3d(x+width(),z,0);
-    glVertex3d(x+width(),z+height()/23,0);
-    glVertex3d(x,z+height()/23,0);
-
-    glVertex3d(x,z,0);
-    glVertex3d(x+width(),z,0);
-    glVertex3d(x+width(),z,-20);
-    glVertex3d(x,z,-20);
-
-    glVertex3d(x,z+height()/23,0);
-    glVertex3d(x+width(),z+height()/23,0);
-    glVertex3d(x+width(),z+height()/23,-20);
-    glVertex3d(x,z+height()/23,-20);
-
-    glVertex3d(x,z,-20);
-    glVertex3d(x+width(),z,-20);
-    glVertex3d(x+width(),z+height()/23,-20);
-    glVertex3d(x,z+height()/23,-20);
-
-    glVertex3d(x,z,0);
-    glVertex3d(x,z,-20);
-    glVertex3d(x,z+height()/23,-20);
-    glVertex3d(x,z+height()/23,0);
-
-    glVertex3d(x+width(),z,0);
-    glVertex3d(x+width(),z,-20);
-    glVertex3d(x+width(),z+height()/23,-20);
-    glVertex3d(x+width(),z+height()/12,0);
-
-    glEnd();
-
-    updateGL();
 }
 
 void GLWidget::cubeGame(int x, int y){

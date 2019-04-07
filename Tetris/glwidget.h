@@ -59,7 +59,9 @@ protected:
 private:
     enum { BoardWidth = 10, BoardHeight = 22 };
 
+    // void setShapeAt(TetrixShape shape, int x, int y) {board[(y * BoardWidth) + x] = shape;}
     TetrixShape &shapeAt(int x, int y) { return board[(y * BoardWidth) + x]; }
+
     int timeoutTime() { return 1000 / (1 + level); }
 
     void clearBoard();

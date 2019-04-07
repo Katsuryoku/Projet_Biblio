@@ -28,9 +28,9 @@ private:
     // cam object
     cv::VideoCapture cap;
     // frame captured by cap
-    cv::Mat frame;
+    cv::Mat frame_;
     // image transformed
-    QImage img;
+    QImage img_;
     // label where display img
     QLabel* labelCam;
     // fist detector

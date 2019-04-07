@@ -103,11 +103,11 @@ TetrixWindow::TetrixWindow()
     connect(glWidget, &GLWidget::linesRemovedChanged,
             linesLcd, qOverload<int>(&QLCDNumber::display));
 #else
-    connect(board, &TetrixWindow::scoreChanged,
+    connect(board, &TetrixBoard::scoreChanged,
             scoreLcd, QOverload<int>::of(&QLCDNumber::display));
-    connect(board, &TetrixWindow::levelChanged,
+    connect(board, &TetrixBoard::levelChanged,
             levelLcd, QOverload<int>::of(&QLCDNumber::display));
-    connect(board, &TetrixWindow::linesRemovedChanged,
+    connect(board, &TetrixBoard::linesRemovedChanged,
             linesLcd, QOverload<int>::of(&QLCDNumber::display));
 #endif
     connect(Camera,&CameraWidget::tryMoveCam,glWidget,&GLWidget::tryMoveCam);

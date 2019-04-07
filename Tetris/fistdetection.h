@@ -16,7 +16,7 @@
 /* Autor : Thomas Mion */
 using namespace std;
 // Class that stock all movment that can be detected
-typedef enum class Movment {kNone, rRight, rLeft, mRight, mLeft};
+enum Movment {kNone, rRight, rLeft, mRight, mLeft};
 // Class that permit to detect fist
 class FistDetection
 {

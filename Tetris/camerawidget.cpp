@@ -28,8 +28,8 @@ void CameraWidget::play(){
                 emit tryMoveCam(mvmd);
                 frame = detector.getDisplayFrame();
             }*/
-            img= Mat2QImage(frame,false);
-            labelCam->setPixmap(QPixmap::fromImage(img));
+            img_= Mat2QImage(frame,false);
+            labelCam->setPixmap(QPixmap::fromImage(img_));
             // Resize the label to fit the image
             labelCam->resize(labelCam->pixmap()->size());
         }
@@ -46,6 +46,6 @@ QImage CameraWidget::Mat2QImage(cv::Mat const& src,bool flipe)
     // Invert Blue and Red color channels
     cvtColor(image,image,COLOR_RGB2BGR);
     // Convert to Qt image
-    QImage img= QImage((const unsigned char*)(image.data),image.cols,image.rows,QImage::Format_RGB888);
+    QImage img= QImage(static_cast<const unsigned char*>(image.data),image.cols,image.rows,QImage::Format_RGB888);
     return img;
 }

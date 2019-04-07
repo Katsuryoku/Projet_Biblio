@@ -52,8 +52,8 @@
 
 #include <QFrame>
 #include <QWidget>
-#include <CameraWidget.h>
-#include <glwidget.h>
+#include "camerawidget.h"
+#include "glwidget.h"
 
 QT_BEGIN_NAMESPACE
 class QLCDNumber;
