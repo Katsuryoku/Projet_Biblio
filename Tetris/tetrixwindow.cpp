@@ -52,6 +52,7 @@
 
 #include "tetrixboard.h"
 #include "tetrixwindow.h"
+#include "glwidget.h"
 
 //! [0]
 TetrixWindow::TetrixWindow()
@@ -87,30 +88,30 @@ TetrixWindow::TetrixWindow()
     labelCamera->setFrameStyle(QFrame::Box | QFrame::Raised);
     Camera = new CameraWidget(labelCamera);
 
-    connect(startButton, &QPushButton::clicked, board, &TetrixBoard::start);
+    connect(startButton, &QPushButton::clicked, glWidget, &GLWidget::start);
 
     connect(startButton, &QPushButton::clicked, Camera, &CameraWidget::play);
 //! [4] //! [5]
     connect(quitButton , &QPushButton::clicked, this, &TetrixWindow::destroyCam);
     connect(quitButton , &QPushButton::clicked, qApp, &QApplication::quit);
-    connect(pauseButton, &QPushButton::clicked, board, &TetrixBoard::pause);
+    connect(pauseButton, &QPushButton::clicked, glWidget, &GLWidget::pause);
     connect(pauseButton, &QPushButton::clicked, Camera, &CameraWidget::changePlay);
 #if __cplusplus >= 201402L
-    connect(board, &TetrixBoard::scoreChanged,
+    connect(glWidget, &GLWidget::scoreChanged,
             scoreLcd, qOverload<int>(&QLCDNumber::display));
-    connect(board, &TetrixBoard::levelChanged,
+    connect(glWidget, &GLWidget::levelChanged,
             levelLcd, qOverload<int>(&QLCDNumber::display));
-    connect(board, &TetrixBoard::linesRemovedChanged,
+    connect(glWidget, &GLWidget::linesRemovedChanged,
             linesLcd, qOverload<int>(&QLCDNumber::display));
 #else
-    connect(board, &TetrixBoard::scoreChanged,
+    connect(glWidget, &GLWidget::scoreChanged,
             scoreLcd, QOverload<int>::of(&QLCDNumber::display));
-    connect(board, &TetrixBoard::levelChanged,
+    connect(glWidget, &GLWidget::levelChanged,
             levelLcd, QOverload<int>::of(&QLCDNumber::display));
-    connect(board, &TetrixBoard::linesRemovedChanged,
+    connect(glWidget, &GLWidget::linesRemovedChanged,
             linesLcd, QOverload<int>::of(&QLCDNumber::display));
 #endif
-    connect(board,&TetrixBoard::createCube,glWidget,&GLWidget::createCube);
+    //connect(glWidget, &GLWidget::createCube,glWidget,&GLWidget::createCube);
     connect(Camera,&CameraWidget::tryMoveCam,board,&TetrixBoard::tryMoveCam);
 //! [5]
 

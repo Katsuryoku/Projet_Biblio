@@ -18,6 +18,7 @@ void CameraWidget::play(){
         {
             cerr<<"Error openning the default camera"<<endl;
         }
+
         while (waitKey(5)<0)
         {
 

@@ -17,8 +17,8 @@ HEADERS       = tetrixboard.h \
                 tetrixpiece.h \
                 tetrixwindow.h \
                 camerawidget.h \
-    			fistdetection.h \
-    			glwidget.h
+                fistdetection.h \
+                glwidget.h
 SOURCES       = main.cpp \
                 tetrixboard.cpp \
                 tetrixpiece.cpp \
@@ -43,7 +43,7 @@ LIBS += -L$$(OPENCV_DIR)\lib \
     -lopencv_videoio401.dll
 }
 !exists( $(QTDIR)/me.txt ){
-INCLUDEPATH +=$$(OPENCV_DIR)file:///D:/Program_Files/opencv/build
+INCLUDEPATH += D:/Program_Files/opencv/build/install/include
 
 LIBS += -L$$(OPENCV_DIR)\lib \
     -lopencv_core2413 \
