@@ -30,6 +30,16 @@ GLWidget::GLWidget(QWidget * parent) : QGLWidget(parent)
 
 
 
+
+//! [1]
+void GLWidget::setNextPieceLabel(QLabel *label)
+{
+    nextPieceLabel = label;
+}
+//! [1]
+
+
+//! [4]
 void GLWidget::start()
 {
     if (isPaused)
@@ -50,12 +60,6 @@ void GLWidget::start()
     newPiece();
     timer.start(timeoutTime(), this);
 }
-//! [1]
-void GLWidget::setNextPieceLabel(QLabel *label)
-{
-    nextPieceLabel = label;
-}
-//! [1]
 //! [4]
 
 //! [5]
@@ -70,19 +74,78 @@ void GLWidget::pause()
     } else {
         timer.start(timeoutTime(), this);
     }
-    update();
-//! [5] //! [6]
+    updateGL();
+    //! [5] //! [6]
 }
+//! [6]
 
+//! [7]
+// Fonction d'affichage
+void GLWidget::paintGL()
+{
+    // Reinitialisation des tampons
+    // ...
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_DEPTH_BUFFER_BIT);
+    // Definition de la position de la camera
+    // ...
+
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(width()*5,height()/3,700,width()*5,height()/2,0,0,1,0);
+
+    //Création du plateau
+    glEnable(GL_DEPTH_TEST);
+    glColor3ub(255,255,255);
+
+    if (!isStarted) {
+        renderText(width()/2-10, height()/2, tr("Appuyez sur start"));
+        return;
+    }
+    if (isPaused) {
+        renderText(100, 100, tr("Pause"));
+        return;
+    }
+
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(80,width()/height()*20,0.1,-20);
+    glColor3ub(255,255,255);
+    glBegin(GL_LINES);
+    paintLines();
+    for (int i = 0; i < BoardHeight; ++i) {
+        for (int j = 0; j < BoardWidth; ++j) {
+            TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
+            if (shape != NoShape)
+                createCube(j,i ,shape);
+        }
+        if (curPiece.shape() != NoShape) {
+            for (int i = 0; i < 4; ++i) {
+                int x = curX + curPiece.x(i);
+                int y = curY - curPiece.y(i);
+                createCube(x,(BoardHeight - y - 1),curPiece.shape());
+            }
+        }
+    }
+    glEnd();
+
+
+    //! [12]
+}
+//! [12]
+
+//! [13]
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
     if (!isStarted || isPaused || curPiece.shape() == NoShape) {
         keyPressEvent(event);
         return;
     }
-//! [13]
+    //! [13]
 
-//! [14]
+    //! [14]
     switch (event->key()) {
     case Qt::Key_Left:
         tryMove(curPiece, curX - 1, curY);
@@ -107,7 +170,7 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
         event->ignore();
         break;
     }
-//! [14]
+    //! [14]
     // Acceptation de l'evenement et mise a jour de la scene
     event->accept();
     updateGL();
@@ -126,9 +189,9 @@ void GLWidget::timerEvent(QTimerEvent *event)
         }
     } else {
         timerEvent(event);
-//! [15] //! [16]
+        //! [15] //! [16]
     }
-//! [16] //! [17]
+    //! [16] //! [17]
 }
 //! [17]
 
@@ -153,7 +216,7 @@ void GLWidget::dropDown()
         ++dropHeight;
     }
     pieceDropped(dropHeight);
-//! [19] //! [20]
+    //! [19] //! [20]
 }
 //! [20]
 
@@ -187,7 +250,7 @@ void GLWidget::pieceDropped(int dropHeight)
 
     if (!isWaitingAfterLine)
         newPiece();
-//! [22] //! [23]
+    //! [22] //! [23]
 }
 //! [23]
 
@@ -207,21 +270,21 @@ void GLWidget::removeFullLines()
         }
 
         if (lineIsFull) {
-//! [24] //! [25]
+            //! [24] //! [25]
             ++numFullLines;
             for (int k = i; k < BoardHeight - 1; ++k) {
                 for (int j = 0; j < BoardWidth; ++j)
                     shapeAt(j, k) = shapeAt(j, k + 1);
             }
-//! [25] //! [26]
+            //! [25] //! [26]
             for (int j = 0; j < BoardWidth; ++j)
                 shapeAt(j, BoardHeight - 1) = NoShape;
         }
-//! [26] //! [27]
+        //! [26] //! [27]
     }
-//! [27]
+    //! [27]
 
-//! [28]
+    //! [28]
     if (numFullLines > 0) {
         numLinesRemoved += numFullLines;
         score += 10 * numFullLines;
@@ -233,7 +296,7 @@ void GLWidget::removeFullLines()
         curPiece.setShape(NoShape);
         update();
     }
-//! [28] //! [29]
+    //! [28] //! [29]
 }
 //! [29]
 
@@ -251,7 +314,7 @@ void GLWidget::newPiece()
         timer.stop();
         isStarted = false;
     }
-//! [30] //! [31]
+    //! [30] //! [31]
 }
 
 bool GLWidget::tryMove(const TetrixPiece &newPiece, int newX, int newY)
@@ -264,9 +327,9 @@ bool GLWidget::tryMove(const TetrixPiece &newPiece, int newX, int newY)
         if (shapeAt(x, y) != NoShape)
             return false;
     }
-//! [34]
+    //! [34]
 
-//! [35]
+    //! [35]
     curPiece = newPiece;
     curX = newX;
     curY = newY;
@@ -279,30 +342,30 @@ bool GLWidget::tryMove(const TetrixPiece &newPiece, int newX, int newY)
 //!
 void GLWidget::tryMoveCam(Movment mvm)
 {
-        switch (mvm) {
-        case Movment::mLeft:
-            tryMove(curPiece, curX - 1, curY);
-            break;
-        case Movment::mRight:
-            tryMove(curPiece, curX + 1, curY);
-            break;
-        case Movment::rRight:
-            if (lastMvmTime.isNull()){
-                lastMvmTime = QTime::currentTime();
-                tryMove(curPiece.rotatedRight(), curX, curY);
-                break;
-            }
-            if (QTime::currentTime().msecsTo(lastMvmTime)<-150){
-                lastMvmTime = QTime::currentTime();
-                tryMove(curPiece.rotatedRight(), curX, curY);
-            }
-            break;
-        case Movment::rLeft:
-            tryMove(curPiece.rotatedLeft(), curX, curY);
-            break;
-        case Movment::kNone:
+    switch (mvm) {
+    case Movment::mLeft:
+        tryMove(curPiece, curX - 1, curY);
+        break;
+    case Movment::mRight:
+        tryMove(curPiece, curX + 1, curY);
+        break;
+    case Movment::rRight:
+        if (lastMvmTime.isNull()){
+            lastMvmTime = QTime::currentTime();
+            tryMove(curPiece.rotatedRight(), curX, curY);
             break;
         }
+        if (QTime::currentTime().msecsTo(lastMvmTime)<-150){
+            lastMvmTime = QTime::currentTime();
+            tryMove(curPiece.rotatedRight(), curX, curY);
+        }
+        break;
+    case Movment::rLeft:
+        tryMove(curPiece.rotatedLeft(), curX, curY);
+        break;
+    case Movment::kNone:
+        break;
+    }
 }
 
 
@@ -321,12 +384,12 @@ void GLWidget::initializeGL()
 
     // Reglage de la lampe
     // ...
-//    glEnable(GL_LIGHTING);
-//    GLfloat pos_tab[]={0,0,0,1};
-//    GLfloat dif_tab[]={1,1,1,1};
-//    glEnable(GL_LIGHT0);
-//    glLightfv(GL_LIGHT0,GL_POSITION,pos_tab);
-//    glLightfv(GL_LIGHT0,GL_AMBIENT_AND_DIFFUSE,dif_tab);
+    //    glEnable(GL_LIGHTING);
+    //    GLfloat pos_tab[]={0,0,0,1};
+    //    GLfloat dif_tab[]={1,1,1,1};
+    //    glEnable(GL_LIGHT0);
+    //    glLightfv(GL_LIGHT0,GL_POSITION,pos_tab);
+    //    glLightfv(GL_LIGHT0,GL_AMBIENT_AND_DIFFUSE,dif_tab);
 
 
 
@@ -416,67 +479,21 @@ void GLWidget::addCubes(int x, int y, TetrixShape shape)
     QPoint point = QPoint(x,y);
 }
 
-// Fonction d'affichage
-void GLWidget::paintGL()
-{
-    // Reinitialisation des tampons
-    // ...
-    glClear(GL_COLOR_BUFFER_BIT);
-    glClear(GL_DEPTH_BUFFER_BIT);
-    // Definition de la position de la camera
-    // ...
-
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    gluLookAt(width()*5,height()/3,700,width()*5,height()/2,0,0,1,0);
-
-    //Création du plateau
-   glEnable(GL_DEPTH_TEST);
-   glColor3ub(255,255,255);
+void GLWidget::paintLines(){
+    for (int i= 1;i<24;i++){
+        glVertex3d(width(),i*height()/23,-20);
+        glVertex3d(width()*11,i*height()/23,-20);
 
 
 
+    }
 
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   gluPerspective(80,width()/height()*20,0.1,-20);
-   glColor3ub(255,255,255);
-   glBegin(GL_LINES);
-   for (int i= 1;i<24;i++){
-       glVertex3d(width(),i*height()/23,-20);
-       glVertex3d(width()*11,i*height()/23,-20);
-
-
-
-   }
-
-   for(int i =1; i<12;i++){
-       glVertex3d(i*width(),height()/23,-20);
-       glVertex3d(i*width(),height()/23*23,-20);
-   }
-
-
-   for (int i = 0; i < BoardHeight; ++i) {
-       for (int j = 0; j < BoardWidth; ++j) {
-           TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
-           if (shape != NoShape)
-               createCube(j,i ,shape);
-       }
-       if (curPiece.shape() != NoShape) {
-           for (int i = 0; i < 4; ++i) {
-               int x = curX + curPiece.x(i);
-               int y = curY - curPiece.y(i);
-               createCube(x,(BoardHeight - y - 1),curPiece.shape());
-               //emit Cube(x,BoardHeight - y - 1,curPiece.shape());
-           }
-       }
-   }
-   glEnd();
-
-
-
+    for(int i =1; i<12;i++){
+        glVertex3d(i*width(),height()/23,-20);
+        glVertex3d(i*width(),height()/23*23,-20);
+    }
 }
+
 
 
 

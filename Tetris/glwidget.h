@@ -86,6 +86,7 @@ private:
     int score;
     int level;
     TetrixShape board[BoardWidth * BoardHeight];
+    void paintLines();
 };
 
 

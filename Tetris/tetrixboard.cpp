@@ -163,10 +163,7 @@ void TetrixBoard::paintEvent(QPaintEvent *event)
             int y = curY - curPiece.y(i);
             drawSquare(painter, rect.left() + x * squareWidth(),
                        boardTop + (BoardHeight - y - 1) * squareHeight(),
-                       curPiece.shape());
-            emit createCube(rect.left() + x * squareWidth(),
-                            boardTop + (BoardHeight - y - 1) * squareHeight(),curPiece.shape());
-        }
+                       curPiece.shape());        }
 //! [10] //! [11]
     }
 //! [11] //! [12]
