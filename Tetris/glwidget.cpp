@@ -1,5 +1,3 @@
-
-
 #define _USE_MATH_DEFINES
 #include <QtWidgets>
 
@@ -52,6 +50,12 @@ void GLWidget::start()
     newPiece();
     timer.start(timeoutTime(), this);
 }
+//! [1]
+void GLWidget::setNextPieceLabel(QLabel *label)
+{
+    nextPieceLabel = label;
+}
+//! [1]
 //! [4]
 
 //! [5]

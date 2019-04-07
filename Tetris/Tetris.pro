@@ -55,3 +55,6 @@ LIBS += -L$$(OPENCV_DIR)\lib \
 }else{
 
 }
+
+DISTFILES += \
+    closed_palm.xml

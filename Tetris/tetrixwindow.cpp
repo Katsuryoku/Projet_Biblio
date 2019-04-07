@@ -57,13 +57,12 @@
 //! [0]
 TetrixWindow::TetrixWindow()
 {
-    board = new TetrixBoard;
 //! [0]
     glWidget = new GLWidget();
     nextPieceLabel = new QLabel;
     nextPieceLabel->setFrameStyle(QFrame::Box | QFrame::Raised);
     nextPieceLabel->setAlignment(Qt::AlignCenter);
-    board->setNextPieceLabel(nextPieceLabel);
+    glWidget->setNextPieceLabel(nextPieceLabel);
 
 //! [1]
     scoreLcd = new QLCDNumber(5);
@@ -104,15 +103,14 @@ TetrixWindow::TetrixWindow()
     connect(glWidget, &GLWidget::linesRemovedChanged,
             linesLcd, qOverload<int>(&QLCDNumber::display));
 #else
-    connect(glWidget, &GLWidget::scoreChanged,
+    connect(board, &TetrixWindow::scoreChanged,
             scoreLcd, QOverload<int>::of(&QLCDNumber::display));
-    connect(glWidget, &GLWidget::levelChanged,
+    connect(board, &TetrixWindow::levelChanged,
             levelLcd, QOverload<int>::of(&QLCDNumber::display));
-    connect(glWidget, &GLWidget::linesRemovedChanged,
+    connect(board, &TetrixWindow::linesRemovedChanged,
             linesLcd, QOverload<int>::of(&QLCDNumber::display));
 #endif
-    //connect(glWidget, &GLWidget::createCube,glWidget,&GLWidget::createCube);
-    connect(Camera,&CameraWidget::tryMoveCam,board,&TetrixBoard::tryMoveCam);
+    connect(Camera,&CameraWidget::tryMoveCam,glWidget,&GLWidget::tryMoveCam);
 //! [5]
 
 //! [6]

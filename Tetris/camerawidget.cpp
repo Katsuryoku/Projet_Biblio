@@ -5,37 +5,36 @@ CameraWidget::CameraWidget(QLabel* label, QWidget *parent) : QWidget (parent)
 {
     cap.open(0);
     labelCam = label;
-    play_ = false;
+    play_ = true;
     detector = FistDetection();
 }
 void CameraWidget::changePlay(){
     play_=!play_;
 }
 void CameraWidget::play(){
-    play_ = true;
     while (play_){
         if(!cap.isOpened())  // check if we succeeded
         {
-            cerr<<"Error openning the default camera"<<endl;
+            qDebug("Error openning the default camera");
         }
-
-        while (waitKey(5)<0)
+        while (cv::waitKey(5)<0)
         {
-
             Mat frame;
             // Get frame
             cap >> frame;
+            /*
             if (detector.loadCascade()){
                 Movment mvmd = detector.detection(frame);
                 emit tryMoveCam(mvmd);
                 frame = detector.getDisplayFrame();
-            }
+            }*/
             img= Mat2QImage(frame,false);
             labelCam->setPixmap(QPixmap::fromImage(img));
             // Resize the label to fit the image
             labelCam->resize(labelCam->pixmap()->size());
         }
     }
+    play_=true;
 }
 QImage CameraWidget::Mat2QImage(cv::Mat const& src,bool flipe)
 {

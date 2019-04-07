@@ -27,6 +27,7 @@ public:
     void cubeGame(int x, int y);
 
 
+    void setNextPieceLabel(QLabel *label);
 public slots:
 
     void addCubes(int x, int y, TetrixShape shape);
