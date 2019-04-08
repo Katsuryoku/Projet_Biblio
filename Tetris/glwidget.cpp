@@ -144,7 +144,7 @@ void GLWidget::createCube(double x, double z, TetrixShape shape){
     QColor color = colorTable[int(shape)];
     glColor3ub(color.red(),color.green(),color.blue());
     z=(z+1)*height()/23;
-    x=(x+1)*width()/3;
+    x=(x+1)*width();
     glBegin(GL_QUADS);
     glVertex3d(x,z,0);
     glVertex3d(x+width(),z,0);
