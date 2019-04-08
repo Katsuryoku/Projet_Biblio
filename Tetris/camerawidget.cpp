@@ -22,12 +22,12 @@ void CameraWidget::play(){
             Mat frame;
             // Get frame
             cap >> frame;
-            /*
+
             if (detector.loadCascade()){
                 Movment mvmd = detector.detection(frame);
                 emit tryMoveCam(mvmd);
                 frame = detector.getDisplayFrame();
-            }*/
+            }
             img_= Mat2QImage(frame,false);
             labelCam->setPixmap(QPixmap::fromImage(img_));
             // Resize the label to fit the image
