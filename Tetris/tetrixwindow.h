@@ -95,9 +95,12 @@ private:
     QPushButton *quitButton;
     // Button to pause game
     QPushButton *pauseButton;
+    void keyPressEvent(QKeyEvent *event);
 private slots :
     // Slots that permit to destroy the cam when we quit application
     void destroyCam();
+signals:
+    void kPressEvent(QKeyEvent *event);
 };
 //! [0]
 #endif

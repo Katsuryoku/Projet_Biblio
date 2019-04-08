@@ -36,6 +36,9 @@ public slots:
     void pause();
     void tryMoveCam(Movment mvm);
 
+    // Fonction de gestion d'interactions clavier
+
+    void kPressEvent(QKeyEvent *event);
 signals:
     void scoreChanged(int score);
     void levelChanged(int level);
@@ -51,9 +54,6 @@ protected:
     // Fonction d'affichage
     void paintGL();
 
-    // Fonction de gestion d'interactions clavier
-
-    void keyPressEvent(QKeyEvent *event);
     void timerEvent(QTimerEvent *event) ;
 
 private:

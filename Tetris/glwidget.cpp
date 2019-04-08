@@ -182,7 +182,7 @@ void GLWidget::createCube(double x, double z, TetrixShape shape){
 //! [12]
 
 //! [13]
-void GLWidget::keyPressEvent(QKeyEvent *event)
+void GLWidget::kPressEvent(QKeyEvent *event)
 {
     if (!isStarted || isPaused || curPiece.shape() == NoShape) {
         //keyPressEvent(event);

@@ -111,6 +111,7 @@ TetrixWindow::TetrixWindow()
             linesLcd, QOverload<int>::of(&QLCDNumber::display));
 #endif
     connect(Camera,&CameraWidget::tryMoveCam,glWidget,&GLWidget::tryMoveCam);
+    connect(this,&TetrixWindow::kPressEvent, glWidget,&GLWidget::kPressEvent);
 //! [5]
 
 //! [6]
@@ -146,4 +147,7 @@ QLabel *TetrixWindow::createLabel(const QString &text)
     return label;
 }
 //! [7]
+void TetrixWindow::keyPressEvent(QKeyEvent *event){
+    emit kPressEvent(event);
+}
 
