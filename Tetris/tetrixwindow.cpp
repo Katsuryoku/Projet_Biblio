@@ -96,8 +96,8 @@ TetrixWindow::TetrixWindow()
     connect(pauseButton, &QPushButton::clicked, glWidget, &GLWidget::pause);
     connect(pauseButton, &QPushButton::clicked, Camera, &CameraWidget::changePlay);
 #if __cplusplus >= 201402L
-    connect(glWidget, &GLWidget::scoreChanged,
-            scoreLcd, qOverload<int>(&QLCDNumber::display));
+//    connect(glWidget, &GLWidget::scoreChanged,
+//            scoreLcd, qOverload<int>(&QLCDNumber::display));
     connect(glWidget, &GLWidget::levelChanged,
             levelLcd, qOverload<int>(&QLCDNumber::display));
     connect(glWidget, &GLWidget::linesRemovedChanged,
@@ -125,8 +125,8 @@ TetrixWindow::TetrixWindow()
     layout->addWidget(quitButton, 7, 0);
     layout->addWidget(pauseButton, 8, 0);
     layout->addWidget(glWidget, 0, 1, 9, 1);
-    layout->addWidget(createLabel(tr("SCORE")), 0, 2);
-    layout->addWidget(scoreLcd, 1, 2);
+    //layout->addWidget(createLabel(tr("SCORE")), 0, 2);
+    //layout->addWidget(scoreLcd, 1, 2);
     layout->addWidget(createLabel(tr("CAMERA")), 2, 2);
     layout->addWidget(labelCamera,3,2);
     setLayout(layout);

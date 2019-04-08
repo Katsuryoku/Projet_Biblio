@@ -115,17 +115,17 @@ void GLWidget::paintGL()
     glColor3ub(255,255,255);
     glBegin(GL_LINES);
     paintLines();
-    for (int i = 0; i < BoardHeight; ++i) {
-        for (int j = 0; j < BoardWidth; ++j) {
-            TetrixShape shape = shapeAt(j, BoardHeight - i - 1);
+    for (int i = 0; i < 22; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            TetrixShape shape = shapeAt(j, i);
             if (shape != NoShape)
                 createCube(j,i ,shape);
         }
-        if (curPiece.shape() != NoShape) {
+        if (curPiece.shape() != NoShape && isStarted==true) {
             for (int i = 0; i < 4; ++i) {
                 int x = curX + curPiece.x(i);
                 int y = curY - curPiece.y(i);
-                createCube(x,(BoardHeight - y - 1),curPiece.shape());
+                createCube(x,y,curPiece.shape());
             }
         }
     }
@@ -185,7 +185,7 @@ void GLWidget::createCube(double x, double z, TetrixShape shape){
 void GLWidget::keyPressEvent(QKeyEvent *event)
 {
     if (!isStarted || isPaused || curPiece.shape() == NoShape) {
-        keyPressEvent(event);
+        //keyPressEvent(event);
         return;
     }
     //! [13]
@@ -211,8 +211,8 @@ void GLWidget::keyPressEvent(QKeyEvent *event)
         oneLineDown();
         break;
     default:
-        keyPressEvent(event);
-        event->ignore();
+        //keyPressEvent(event);
+        //event->ignore();
         break;
     }
     //! [14]
