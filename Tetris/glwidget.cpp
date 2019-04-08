@@ -372,7 +372,7 @@ bool GLWidget::tryMove(const TetrixPiece &newPiece, int newX, int newY)
     for (int i = 0; i < 4; ++i) {
         int x = newX + newPiece.x(i);
         int y = newY - newPiece.y(i);
-        if (x < 0 || x >= BoardWidth || y < 0 || y >= BoardHeight)
+        if (x < 0 || x >= 10 || y < 0 || y >= 22)
             return false;
         if (shapeAt(x, y) != NoShape)
             return false;
