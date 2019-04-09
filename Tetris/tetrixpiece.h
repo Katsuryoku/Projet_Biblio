@@ -50,7 +50,7 @@
 
 #ifndef TETRIXPIECE_H
 #define TETRIXPIECE_H
-
+// Enum type containing all the shapes a piece can have
 enum TetrixShape { NoShape, ZShape, SShape, LineShape, TShape, SquareShape,
                    LShape, MirroredLShape };
 
@@ -60,9 +60,13 @@ class TetrixPiece
 public:
     TetrixPiece() { setShape(NoShape); }
 
+    //Set the shape of a piece at random
     void setRandomShape();
+
+    // Set the shape of piece to a defined one
     void setShape(TetrixShape shape);
 
+    // Returns the shape of a piece
     TetrixShape shape() const { return pieceShape; }
     int x(int index) const { return coords[index][0]; }
     int y(int index) const { return coords[index][1]; }
