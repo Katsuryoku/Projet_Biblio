@@ -5,11 +5,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/objdetect.hpp>
 #include "opencv2/core/version.hpp"
-#if CV_MAJOR_VERSION == 2
-#include "opencv2/opencv.hpp"
-#elif CV_MAJOR_VERSION == 4
 #include <opencv2/videoio.hpp>
-#endif
 #include <QWidget>
 #include <cstdio>
 #include <iostream>
