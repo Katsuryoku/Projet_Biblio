@@ -8,7 +8,7 @@ bool FistDetection::loadCascade()
 {
     if( !face_cascade.load( "../Tetris/closed_palm.xml" ) )
     {
-        cerr<<QDir::currentPath().toStdString()<<endl;
+        cerr<<QDir("./closed_palm.xml").absolutePath().toStdString()<<endl;
         return false;
     }else {
         return true;
