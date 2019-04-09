@@ -357,6 +357,7 @@ void GLWidget::newPiece()
 {
     curPiece = nextPiece;
     nextPiece.setRandomShape();
+    showNextPiece();
     curX = BoardWidth / 2 + 1;
     curY = BoardHeight - 1 + curPiece.minY();
 
@@ -367,7 +368,48 @@ void GLWidget::newPiece()
     }
     //! [30] //! [31]
 }
+void GLWidget::showNextPiece()
+{
+    if (!nextPieceLabel)
+        return;
 
+    int dx = nextPiece.maxX() - nextPiece.minX() + 1;
+    int dy = nextPiece.maxY() - nextPiece.minY() + 1;
+
+    QPixmap pixmap(dx * contentsRect().width() /10, dy * contentsRect().height()/22);
+    QPainter painter(&pixmap);
+    painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
+
+    for (int i = 0; i < 4; ++i) {
+        int x = nextPiece.x(i) - nextPiece.minX();
+        int y = nextPiece.y(i) - nextPiece.minY();
+        drawSquare(painter, x * contentsRect().width() /10, y * contentsRect().height()/22,
+                   nextPiece.shape());
+    }
+    nextPieceLabel->setPixmap(pixmap);
+//! [32] //! [33]
+}
+void GLWidget::drawSquare(QPainter &painter, int x, int y, TetrixShape shape)
+{
+    static const QRgb colorTable[8] = {
+        0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
+    };
+
+    QColor color = colorTable[int(shape)];
+    painter.fillRect(x + 1, y + 1, contentsRect().width() /10 - 2, contentsRect().height()/22 - 2,
+                     color);
+
+    painter.setPen(color.light());
+    painter.drawLine(x, y + contentsRect().height()/22 - 1, x, y);
+    painter.drawLine(x, y, x + contentsRect().width() /10 - 1, y);
+
+    painter.setPen(color.dark());
+    painter.drawLine(x + 1, y + contentsRect().height()/22 - 1,
+                     x + contentsRect().width() /10 - 1, y + contentsRect().height()/22 - 1);
+    painter.drawLine(x + contentsRect().width() /10 - 1, y + contentsRect().height()/22 - 1,
+                     x + contentsRect().width() /10 - 1, y + 1);
+}
 bool GLWidget::tryMove(const TetrixPiece &newPiece, int newX, int newY)
 {
     for (int i = 0; i < 4; ++i) {
