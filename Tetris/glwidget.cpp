@@ -509,22 +509,8 @@ void GLWidget::resizeGL(int width, int height)
     glLoadIdentity();
 }
 
-void GLWidget::cubeGame(int x, int y){
-    y=(y+1)*height()/23;
-    x=(x+1)*width();
-    //createCube(x,y);
-}
 
-void GLWidget::addCubes(int x, int y, TetrixShape shape)
-{
-    static const QRgb colorTable[8] = {
-        0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
-        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
-    };
 
-    QColor color = colorTable[int(shape)];
-    QPoint point = QPoint(x,y);
-}
 
 void GLWidget::paintLines(){
     for (int i= 1;i<24;i++){

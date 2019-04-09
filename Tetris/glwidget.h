@@ -12,10 +12,10 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include <GL/glu.h>
-
+/* Autor : Hugo Nicolle */
 class QLabel;
 
-// Classe dediee a l'affichage d'une scene OpenGL
+// Classe dediee a l'affichage d'une scene OpenGL et au déroulement du jeu
 class GLWidget : public QGLWidget
 {
     Q_OBJECT
@@ -24,26 +24,36 @@ public:
     // Constructeur
     GLWidget(QWidget * parent = nullptr);
 
-    void cubeGame(int x, int y);
-
+    //Draw a cube in the coordinate system of the GL scene
+    void createCube(double x, double z, TetrixShape shape);
 
     void setNextPieceLabel(QLabel *label);
 public slots:
 
-    void addCubes(int x, int y, TetrixShape shape);
-    void createCube(double x, double z, TetrixShape shape);
+    //Initialize a game
     void start();
+
+    //Put the game
     void pause();
+
+    //Move a piece according to the argument movement
     void tryMoveCam(Movment mvm);
 
-    // Fonction de gestion d'interactions clavier
-
+    //Interactions with the keyboard
     void kPressEvent(QKeyEvent *event);
+
 signals:
+
+    //Indicates the score changed
     void scoreChanged(int score);
+
+    //Indicates a level change
     void levelChanged(int level);
+
+    //Indicates lines were removed from the board
     void linesRemovedChanged(int numLines);
-    void Cube(double x, double z,TetrixShape shape);
+
+
 
 protected:
     // Fonction d'initialisation
@@ -54,25 +64,35 @@ protected:
     // Fonction d'affichage
     void paintGL();
 
+    // Timer gestion
     void timerEvent(QTimerEvent *event) ;
 
 private:
     enum { BoardWidth = 10, BoardHeight = 22 };
 
-    // void setShapeAt(TetrixShape shape, int x, int y) {board[(y * BoardWidth) + x] = shape;}
+    // Find a shape in the board
     TetrixShape &shapeAt(int x, int y) { return board[(y * BoardWidth) + x]; }
 
+    // Returns a timeout time for the timer
     int timeoutTime() { return 1000 / (1 + level); }
 
+    // Completely clears the board for a new game
     void clearBoard();
+
+    // Drops the current piece at the bottom
     void dropDown();
+
+
     void oneLineDown();
+
+
     void pieceDropped(int dropHeight);
     void removeFullLines();
     void newPiece();
     void showNextPiece();
+
+    // Tells if a piece can move ti a location
     bool tryMove(const TetrixPiece &newPiece, int newX, int newY);
-    void drawSquare(QPainter &painter, int x, int y, TetrixShape shape);
     QTime lastMvmTime;
     QBasicTimer timer;
     QPointer<QLabel> nextPieceLabel;
