@@ -10,6 +10,8 @@ win32 {
 unix {
         LIBS     += -lGL -lGLU
 }
+TEMPLATE = app
+
 CONFIG	 += c++14
 # nom de l'exe genere
 TARGET 	  = Tetrix
