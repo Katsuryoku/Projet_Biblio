@@ -82,16 +82,22 @@ private:
     // Drops the current piece at the bottom
     void dropDown();
 
-
+    // Moves a piece one line down
     void oneLineDown();
 
-
+    // Changes game variables when a piece reaches the bottom of the board
     void pieceDropped(int dropHeight);
+
+    // Removes lines that are full
     void removeFullLines();
+
+    // Changes the current piece
     void newPiece();
+
+
     void showNextPiece();
 
-    // Tells if a piece can move ti a location
+    // Tells if a piece can move to a location and move it if it's possible
     bool tryMove(const TetrixPiece &newPiece, int newX, int newY);
     QTime lastMvmTime;
     QBasicTimer timer;

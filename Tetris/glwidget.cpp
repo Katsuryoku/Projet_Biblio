@@ -280,7 +280,7 @@ void GLWidget::pieceDropped(int dropHeight)
     for (int i = 0; i < 4; ++i) {
         int x = curX + curPiece.x(i);
         int y = curY - curPiece.y(i);
-        // setShapeAt(curPiece.shape(), x, y);
+
         shapeAt(x, y) = curPiece.shape();
     }
 
