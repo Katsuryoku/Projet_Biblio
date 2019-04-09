@@ -13,14 +13,13 @@ unix {
 CONFIG	 += c++14
 # nom de l'exe genere
 TARGET 	  = Tetrix
-HEADERS       = tetrixboard.h \
+HEADERS       = \
                 tetrixpiece.h \
                 tetrixwindow.h \
                 camerawidget.h \
                 fistdetection.h \
                 glwidget.h
 SOURCES       = main.cpp \
-                tetrixboard.cpp \
                 tetrixpiece.cpp \
                 tetrixwindow.cpp \
                 camerawidget.cpp \

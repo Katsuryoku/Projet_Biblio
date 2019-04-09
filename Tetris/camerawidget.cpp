@@ -12,6 +12,7 @@ void CameraWidget::changePlay(){
     play_=!play_;
 }
 void CameraWidget::play(){
+    play_=true;
     while (play_){
         if(!cap.isOpened())  // check if we succeeded
         {
@@ -34,7 +35,6 @@ void CameraWidget::play(){
             labelCam->resize(labelCam->pixmap()->size());
         }
     }
-    play_=true;
 }
 QImage CameraWidget::Mat2QImage(cv::Mat const& src,bool flipe)
 {
