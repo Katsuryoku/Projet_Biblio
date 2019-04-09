@@ -115,6 +115,7 @@ void GLWidget::paintGL()
     glColor3ub(255,255,255);
     glBegin(GL_LINES);
     paintLines();
+    glEnd();
     for (int i = 0; i < 22; ++i) {
         for (int j = 0; j < 10; ++j) {
             TetrixShape shape = shapeAt(j, i);
@@ -129,7 +130,7 @@ void GLWidget::paintGL()
             }
         }
     }
-    glEnd();
+
 
 
     //! [12]
