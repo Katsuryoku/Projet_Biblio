@@ -67,6 +67,7 @@ protected:
     // Timer gestion
     void timerEvent(QTimerEvent *event) ;
 
+
 private:
     enum { BoardWidth = 10, BoardHeight = 22 };
 
@@ -91,29 +92,62 @@ private:
     // Removes lines that are full
     void removeFullLines();
 
+    // Draws a square in a painter
+    void drawSquare(QPainter &painter, int x, int y, TetrixShape shape);
+
     // Changes the current piece
     void newPiece();
 
-
+    // Shows the next piece
     void showNextPiece();
 
     // Tells if a piece can move to a location and move it if it's possible
     bool tryMove(const TetrixPiece &newPiece, int newX, int newY);
+
+    // Last time where the fist are detected close to one another
     QTime lastMvmTime;
+
+
     QBasicTimer timer;
+
+
     QPointer<QLabel> nextPieceLabel;
+
+
     bool isStarted;
+
+
     bool isPaused;
+
+
     bool isWaitingAfterLine;
+
+    // The piece that the player is moving
     TetrixPiece curPiece;
+
+
     TetrixPiece nextPiece;
+
+    // The X position of the current piece
     int curX;
+
+    // The X position of the current piece
     int curY;
+
+    // The number of lines removed
     int numLinesRemoved;
+
+    // The number of pieces dropped
     int numPiecesDropped;
+
     int score;
+
     int level;
+
+    // A 1D table representing the board
     TetrixShape board[BoardWidth * BoardHeight];
+
+    // Draws the grid
     void paintLines();
 };
 
